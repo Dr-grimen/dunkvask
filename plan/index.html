@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dunkvask-planen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: én lesekolonne med innholdsliste øverst; tre spor (kunde, vasker, eier) side om side på PC, stablet på mobil */
+:root{
+  --bg:#F5F9F7; --surface:#FFFFFF; --fg:#13261F; --muted:#56695F; --line:#D8E4DE;
+  --accent:#0E8A5F; --accent-ink:#0A6B49; --accent-soft:#E2F3EA; --warn:#A8550E; --warn-soft:#FBEEDF;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:Inter,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0E1814;--surface:#15221C;--fg:#E6F0EB;--muted:#9AB0A6;--line:#28392F;--accent:#1BAA77;--accent-ink:#62D4A8;--accent-soft:#163A2B;--warn:#F0A562;--warn-soft:#3A2715;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0E1814;--surface:#15221C;--fg:#E6F0EB;--muted:#9AB0A6;--line:#28392F;--accent:#1BAA77;--accent-ink:#62D4A8;--accent-soft:#163A2B;--warn:#F0A562;--warn-soft:#3A2715;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+main{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:52px}
+.narrow{max-width:720px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(34px,6vw,50px);line-height:1.05}
+h2{font-size:clamp(23px,3.6vw,30px);line-height:1.2}
+h3{font-size:19px}
+p{margin:0}
+a{color:var(--accent-ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink)}
+.lead{font-size:20px;color:var(--muted);margin-top:14px;max-width:62ch}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:14px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.toc a{text-decoration:none;font-size:15px;font-weight:500;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--fg)}
+.toc a:hover{border-color:var(--accent)}
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.link{display:block;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.link:hover{border-color:var(--accent)}
+.link b{display:block;font-family:var(--display);font-size:18px}
+.link span{font-size:14px;color:var(--muted);word-break:break-all}
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.track{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;min-width:0}
+.track h3{margin-bottom:10px}
+.track .who{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);margin-bottom:4px}
+ol.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px}
+ol.steps li::marker{color:var(--accent-ink);font-weight:700}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.list li{padding-left:22px;position:relative}
+ul.list li::before{content:"";position:absolute;left:4px;top:.65em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.flow div{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;min-width:0}
+.flow b{display:block;color:var(--accent-ink);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+.decide{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.q{background:var(--warn-soft);border-radius:14px;padding:16px 18px;min-width:0}
+.q h3{font-size:17px;color:var(--warn)}
+.q p{font-size:15px;margin-top:4px}
+.q .sug{margin-top:8px;font-size:14px;color:var(--muted)}
+.timeline{border-left:2px solid var(--line);margin-left:6px}
+.t{position:relative;padding:0 0 22px 22px}
+.t:last-child{padding-bottom:0}
+.t::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.t .when{font-size:13px;font-weight:600;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.06em}
+.t p{color:var(--muted);font-size:15px}
+.calc{background:var(--accent-soft);border-radius:16px;padding:20px 22px}
+.calc table td:last-child{text-align:right;font-weight:600}
+.calc td{border-color:var(--line)}
+.src{font-size:13px;color:var(--muted)}
+@media (max-width:820px){.tracks{grid-template-columns:1fr}}
+@media (max-width:600px){.links,.decide{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+
+  <header class="narrow">
+    <p class="eyebrow">Samlet plan · oppdatert 13.11.2026</p>
+    <h1>Dunkvask-planen</h1>
+    <p class="lead">Alt på ett sted: idéen, hvordan nettsiden skal fungere for kunder og vaskere, betaling, hvordan vi får de første kundene, og det som må bestemmes før vi bygger videre.</p>
+    <nav class="toc" aria-label="Innhold">
+      <a href="#lenker">Lenker</a><a href="#ide">Idéen</a><a href="#spor">Kunde, vasker, eier</a><a href="#betaling">Betaling</a><a href="#tall">Tall</a><a href="#kunder">De første kundene</a><a href="#konkurrenter">Hvem gjør det i dag</a><a href="#risiko">Risiko</a><a href="#tidslinje">Tidslinje</a><a href="#senere">Senere</a><a href="#bestemme">Må bestemmes</a>
+    </nav>
+  </header>
+
+  <section id="lenker" class="stack">
+    <h2>Lenker</h2>
+    <div class="links">
+      <a class="link" href="../ideen/"><b>Idéen kort fortalt</b><span>dr-grimen.github.io/dunkvask/ideen</span></a>
+      <a class="link" href="../"><b>Utkast til nettsiden</b><span>dr-grimen.github.io/dunkvask · skjemaene er bare til test</span></a>
+    </div>
+  </section>
+
+  <section id="ide" class="stack narrow">
+    <h2>Idéen</h2>
+    <p>En nettside som fungerer som Uber for søppeldunker. Kunder bestiller vask. Lokale folk med egen høytrykksspyler og bil tar jobbene. Vi skaffer kundene og tar 25 %, vaskeren får 75 %.</p>
+    <p class="muted">Bakgrunn: Avfall Sør henter restavfall bare annenhver uke fra 1. september 2026. Dunkene står lenger med matrester, og om sommeren gir det lukt, fluer og mark.</p>
+  </section>
+
+  <section id="spor" class="stack">
+    <h2>Slik skal nettsiden fungere</h2>
+    <p class="muted narrow">Tre typer brukere, hver med sin del av siden. Dette er det ferdige målet. Vi bygger det i små steg.</p>
+    <div class="tracks">
+      <div class="track">
+        <p class="who">Kunden</p>
+        <h3>Bestiller og godkjenner</h3>
+        <ol class="steps">
+          <li>Skriver adresse og ser om det finnes en vasker i området. Hvis ikke: venteliste.</li>
+          <li>Velger antall dunker og enkeltvask eller abonnement. Ser prisen.</li>
+          <li>Reserverer betaling med Vipps. Ingen penger trekkes ennå.</li>
+          <li>Får SMS: «Vaskeren kommer torsdag.»</li>
+          <li>Får bilder før og etter, og trykker «Godkjenn». Da trekkes pengene.</li>
+          <li>Får en vervekode til naboen. Begge får 50 kr rabatt.</li>
+        </ol>
+      </div>
+      <div class="track">
+        <p class="who">Vaskeren</p>
+        <h3>Melder seg på og tar jobber</h3>
+        <ol class="steps">
+          <li>Søker: navn, bosted, utstyr og eget foretak eller ungdomsbedrift.</li>
+          <li>Blir ringt opp, godkjent og får innlogging.</li>
+          <li>Ser ukens jobber, sortert etter gate og tømmedag.</li>
+          <li>Trykker «Start» og «Ferdig» og laster opp bilder før og etter.</li>
+          <li>Ser hva han har tjent. Utbetaling hver uke.</li>
+        </ol>
+      </div>
+      <div class="track">
+        <p class="who">Eieren (deg)</p>
+        <h3>Styrer alt</h3>
+        <ol class="steps">
+          <li>Ser alle bestillinger og vaskere på ett kart.</li>
+          <li>Fordeler jobber, først manuelt og senere automatisk etter avstand.</li>
+          <li>Godkjenner nye vaskere.</li>
+          <li>Ser klager og dårlige vurderinger.</li>
+          <li>Betaler vaskerne hver uke og ser egen inntekt.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="betaling" class="stack">
+    <h2>Betaling: penger trekkes først når jobben er godkjent</h2>
+    <div class="flow" aria-label="Betalingsflyt">
+      <div><b>1. Bestilling</b>Beløpet reserveres i Vipps</div>
+      <div><b>2. Vask</b>Vaskeren laster opp bilder</div>
+      <div><b>3. Godkjenn</b>Kunden trykker godkjenn</div>
+      <div><b>4. Trekk</b>Pengene trekkes</div>
+      <div><b>5. Utbetaling</b>75 % til vaskeren hver uke</div>
+    </div>
+    <div class="tbl">
+      <table>
+        <tr><th></th><th>Vipps</th><th>Stripe (kort)</th></tr>
+        <tr><td>Månedspris</td><td>0 kr</td><td>0 kr</td></tr>
+        <tr><td>Gebyr per betaling</td><td>ca. 2–3 % (ikke sjekket)</td><td>2,4 % + 2 kr (9,20 kr på 300 kr)</td></tr>
+        <tr><td>Reservere først, trekke senere</td><td>Ja</td><td>Ja</td></tr>
+        <tr><td>Betaler vaskeren automatisk</td><td>Nei, vi betaler selv hver uke</td><td>Ja, automatisk deling</td></tr>
+        <tr><td>Kundene foretrekker</td><td>De fleste i Norge</td><td>Færre</td></tr>
+      </table>
+    </div>
+    <p class="muted narrow">Forslag: start med Vipps og betal vaskerne selv hver uke. Bytt til automatisk deling når det blir mange vaskere. Avtalene er allerede på plass.</p>
+  </section>
+
+  <section id="tall" class="stack narrow">
+    <h2>Tall</h2>
+    <div class="calc">
+      <h3>Ett nabolag, én tømmedag</h3>
+      <table>
+        <tr><td>60 hus × 2 dunker</td><td>120 dunker</td></tr>
+        <tr><td>120 dunker × 150 kr</td><td>18 000 kr</td></tr>
+        <tr><td>Til vaskeren (75 %)</td><td>13 500 kr</td></tr>
+        <tr><td>Til oss (25 %)</td><td>4 500 kr</td></tr>
+        <tr><td>Vipps-gebyr (ca. 3 %)</td><td>– 540 kr</td></tr>
+      </table>
+    </div>
+    <ul class="list">
+      <li>Pris: 150 kr per dunk for enkeltvask, 129 kr per dunk med abonnement (hver 4. uke).</li>
+      <li>Første vask til halv pris for nye kunder og borettslag som bestiller før 1. april 2027.</li>
+      <li>Vervekode: begge får 50 kr i rabatt.</li>
+    </ul>
+    <p class="src">Alle tall er anslag.</p>
+  </section>
+
+  <section id="kunder" class="stack narrow">
+    <h2>Slik får vi de første kundene</h2>
+    <ul class="list">
+      <li><b>Kunder før vaskere.</b> Samle 20 ja i samme gate før noen sendes ut.</li>
+      <li><b>Borettslag.</b> 242 borettslag i Kristiansand, men bare 15 har e-post i Brønnøysund. Start med forretningsførerne, som har mange borettslag hver. E-postutkast er skrevet, men ikke sendt.</li>
+      <li><b>Lapper i postkassen</b> i én gate om gangen.</li>
+      <li><b>Facebook-grupper.</b> Bilde av en ekkel dunk før og etter i lokale grupper.</li>
+      <li><b>Banke på døren på tømmedagen</b>, når dunkene står ute.</li>
+      <li><b>Ikke ring privatpersoner.</b> De fleste står i Reservasjonsregisteret, og det er ulovlig å ringe dem med salg. Borettslag og bedrifter kan ringes.</li>
+    </ul>
+  </section>
+
+  <section id="konkurrenter" class="stack narrow">
+    <h2>Hvem gjør det i dag</h2>
+    <ul class="list">
+      <li>Ungdommer og elevbedrifter på Facebook: Karmøy, Brumunddal, Stavern, Skjetten, Sandnes og Malvik, 150–200 kr per hus. Nesten ingen har nettside. De er mulige vaskere hos oss.</li>
+      <li>Små firma: Spylemannen i Larvik (429 kr for opptil 4 dunker), Asker Fasadevask (150–300 kr per dunk).</li>
+      <li>Ren Dunk AS i Oslo (del av PHM Group) vasker for borettslag og bedrifter: 18,5 mill. kr i omsetning og 5,7 mill. i driftsresultat i 2025.</li>
+      <li>Dunkservice AS i Brevik og Madland Frisk Dunk i Stavanger er nystartet.</li>
+      <li>Ingen funnet i Kristiansand.</li>
+    </ul>
+    <p class="src">Kilder: Brønnøysundregistrene, spylemannen.no, askerfasadevask.no og offentlige Facebook-innlegg, sjekket 13.11.2026.</p>
+  </section>
+
+  <section id="risiko" class="stack narrow">
+    <h2>Risiko og løsning</h2>
+    <div class="tbl">
+      <table>
+        <tr><th>Risiko</th><th>Løsning</th></tr>
+        <tr><td>Vannet fryser om vinteren</td><td>Sesong april–oktober. Snømåking om vinteren.</td></tr>
+        <tr><td>Kunder vil ha vasker i nærheten, vaskere vil ha kunder</td><td>Ett nabolag om gangen.</td></tr>
+        <tr><td>Dårlig vasker skader ryktet</td><td>Bilder før og etter, vurderinger, ny vask gratis ved klage.</td></tr>
+        <tr><td>Bli arbeidsgiver med skatt og avgift</td><td>Vaskere med eget foretak eller ungdomsbedrift. Ansett først når det er jobb hele året.</td></tr>
+        <tr><td>Vaskevann i bekker og kummer</td><td>Sjekk kommunens regler. Miljøvennlig såpe.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="tidslinje" class="stack narrow">
+    <h2>Tidslinje</h2>
+    <div class="timeline">
+      <div class="t"><p class="when">Nå – mars 2027</p><h3>Planlegge og samle</h3><p>Bestemme punktene under. Dele idéen. Venteliste for kunder og vaskere. Kontakte forretningsførere for borettslag.</p></div>
+      <div class="t"><p class="when">Mars 2027</p><h3>Nettsiden ferdig</h3><p>Bestilling, Vipps med godkjenning, side for vaskere og oversikt for eieren.</p></div>
+      <div class="t"><p class="when">April 2027</p><h3>Test i ett nabolag i Kristiansand</h3><p>Mål: 20 hus som sier ja og 2–3 vaskere.</p></div>
+      <div class="t"><p class="when">Sommer 2027</p><h3>Flere byer</h3><p>Vaskere fra ventelisten får egne nabolag rundt om i landet.</p></div>
+      <div class="t"><p class="when">Senere</p><h3>Eget utstyr og ansatte</h3><p>Kjøpe høytrykksspylere og ansette folk når det er nok jobb hele året.</p></div>
+    </div>
+  </section>
+
+  <section id="senere" class="stack narrow">
+    <h2>Senere: flere tjenester på samme side</h2>
+    <p class="muted">Samme modell med folk som har eget utstyr. Gir jobb og inntekt hele året.</p>
+    <div class="tbl">
+      <table>
+        <tr><th>Sesong</th><th>Tjeneste</th></tr>
+        <tr><td>Vinter</td><td>Snømåking, tilsyn med hytter, ventilasjonsservice i boliger</td></tr>
+        <tr><td>Vår</td><td>Dekkskift hjemme, vindusvask, terrassevask</td></tr>
+        <tr><td>Sommer</td><td>Dunkvask, plenklipping</td></tr>
+        <tr><td>Høst</td><td>Rensing av takrenner, dekkskift, vinterlagring av robotklippere</td></tr>
+        <tr><td>Jul</td><td>Opp- og nedtaking av julelys</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="bestemme" class="stack">
+    <h2>Må bestemmes før vi bygger videre</h2>
+    <div class="decide">
+      <div class="q"><h3>1. By</h3><p>Bare Kristiansand først, eller hele Norge med venteliste?</p><p class="sug">Forslag: Kristiansand først, venteliste for resten.</p></div>
+      <div class="q"><h3>2. Pris</h3><p>150 kr per dunk, 129 kr med abonnement, 75 % til vaskeren?</p><p class="sug">Forslag: behold.</p></div>
+      <div class="q"><h3>3. Fordeling av jobber</h3><p>Fordeler eieren jobbene, eller tar vaskerne dem fra en liste som i Uber?</p><p class="sug">Forslag: manuelt først, liste senere.</p></div>
+      <div class="q"><h3>4. Unge vaskere</h3><p>Får 15–17-åringer være med?</p><p class="sug">Forslag: ja, med samtykke fra foresatte.</p></div>
+      <div class="q"><h3>5. Klager</h3><p>Hva skjer hvis kunden ikke godkjenner?</p><p class="sug">Forslag: vaskeren kommer tilbake gratis én gang.</p></div>
+      <div class="q"><h3>6. Navn</h3><p>Dunkvask.no, eller et bredere navn som «Nabohjelp» hvis flere tjenester kommer?</p><p class="sug">Forslag: avgjør før domene kjøpes.</p></div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
