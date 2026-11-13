@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dunkvask-ideen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: én lesekolonne som en kort pitch, med en tallrad og en tidslinje der rekkefølgen betyr noe */
+:root{
+  --bg:#F5F9F7; --surface:#FFFFFF; --fg:#13261F; --muted:#56695F; --line:#D8E4DE;
+  --accent:#0E8A5F; --accent-ink:#0A6B49; --accent-soft:#E2F3EA; --warn:#A8550E; --warn-soft:#FBEEDF;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:Inter,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0E1814;--surface:#15221C;--fg:#E6F0EB;--muted:#9AB0A6;--line:#28392F;--accent:#1BAA77;--accent-ink:#62D4A8;--accent-soft:#163A2B;--warn:#F0A562;--warn-soft:#3A2715;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0E1814;--surface:#15221C;--fg:#E6F0EB;--muted:#9AB0A6;--line:#28392F;--accent:#1BAA77;--accent-ink:#62D4A8;--accent-soft:#163A2B;--warn:#F0A562;--warn-soft:#3A2715;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(34px,6vw,50px);line-height:1.05}
+h2{font-size:clamp(23px,3.6vw,29px);line-height:1.2;margin-bottom:12px}
+h3{font-size:18px}
+p{margin:0}
+.eyebrow{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink)}
+.lead{font-size:20px;color:var(--muted);margin-top:14px;max-width:62ch}
+.stack{display:flex;flex-direction:column;gap:12px}
+.muted{color:var(--muted)}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.fig b{display:block;font-family:var(--display);font-size:28px;font-variant-numeric:tabular-nums;color:var(--accent-ink);line-height:1.1}
+.fig span{font-size:14px;color:var(--muted)}
+.calc{background:var(--accent-soft);border-radius:16px;padding:20px 22px}
+.calc table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:10px}
+.calc td{padding:7px 0;border-bottom:1px solid var(--line)}
+.calc td:last-child{text-align:right;font-weight:600}
+.calc tr:last-child td{border-bottom:0}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.list li{padding-left:22px;position:relative}
+ul.list li::before{content:"";position:absolute;left:4px;top:.65em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.risks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.risk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.risk.hot{background:var(--warn-soft);border-color:transparent}
+.risk.hot h3{color:var(--warn)}
+.risk p{font-size:15px;color:var(--muted);margin-top:4px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.t{position:relative;padding:0 0 22px 22px}
+.t::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.t .when{font-size:13px;font-weight:600;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.06em}
+.t p{color:var(--muted);font-size:15px}
+.cta{background:var(--surface);border:1.5px solid var(--accent);border-radius:18px;padding:22px}
+.cta a{color:var(--accent-ink);font-weight:600}
+.src{font-size:13px;color:var(--muted)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:600px){.figs,.risks{grid-template-columns:1fr}.fig b{font-size:24px}}
+</style>
+</head>
+<body>
+
+<main>
+  <header>
+    <p class="eyebrow">Forretningsidé · november 2026</p>
+    <h1>Dunkvask.no: Uber for søppeldunker</h1>
+    <p class="lead">En nettside der folk bestiller vask av søppeldunken, og lokale folk med høytrykksspyler tar jobben. Vi skaffer kundene, de gjør vasken, og vi tar en andel.</p>
+  </header>
+
+  <section class="stack">
+    <h2>Problemet</h2>
+    <p>Mange kommuner henter nå søppel sjeldnere. Avfall Sør i Kristiansand har hentet restavfall bare annenhver uke siden 1. september 2026. Da blir dunkene stående lenger med matrester, og om sommeren blir det lukt, fluer og mark. Ingen liker å spyle sin egen søppeldunk.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Løsningen</h2>
+    <ul class="list">
+      <li><b>Kunden</b> bestiller på nettsiden: adresse, antall dunker, én vask eller fast abonnement.</li>
+      <li><b>Vi</b> sender jobben til en godkjent vasker som bor i nærheten.</li>
+      <li><b>Vaskeren</b> kommer på tømmedagen, når alle dunkene i gata står ute og er tomme, og spyler, desinfiserer og fjerner lukt.</li>
+    </ul>
+    <div class="figs">
+      <div class="fig"><b>150 kr</b><span>per dunk, enkeltvask</span></div>
+      <div class="fig"><b>129 kr</b><span>per dunk med abonnement</span></div>
+      <div class="fig"><b>75 / 25</b><span>vaskeren får 75 %, vi 25 %</span></div>
+    </div>
+  </section>
+
+  <section class="calc">
+    <h3>Ett nabolag, én tømmedag</h3>
+    <table>
+      <tr><td>60 hus × 2 dunker</td><td>120 dunker</td></tr>
+      <tr><td>120 dunker × 150 kr</td><td>18 000 kr</td></tr>
+      <tr><td>Til vaskeren (75 %)</td><td>13 500 kr</td></tr>
+      <tr><td>Til oss (25 %)</td><td>4 500 kr</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px;font-size:15px">Med abonnement kommer de samme kundene tilbake hver 4. uke. Regnestykket er et anslag.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Folk gjør dette allerede</h2>
+    <p>Etterspørselen finnes, men tilbudet er spredt. Det mangler et felles sted å bestille.</p>
+    <ul class="list">
+      <li>På Facebook vasker ungdommer og elevbedrifter dunker på Karmøy, i Brumunddal, i Stavern, på Skjetten, i Sandnes og i Malvik, for 150–200 kr per hus. Nesten ingen av dem har nettside.</li>
+      <li>Små firma tar 150–300 kr per dunk, for eksempel Spylemannen i Larvik og Asker Fasadevask.</li>
+      <li>Ren Dunk AS i Oslo, som vasker for borettslag og bedrifter, omsatte for 18,5 mill. kr i 2025 med 5,7 mill. i driftsresultat.</li>
+      <li>En person på Nesodden etterlyste hjelp til å vaske dunkene med høytrykk i en lokal Facebook-gruppe.</li>
+      <li>Vi fant ingen som vasker dunker i Kristiansand.</li>
+    </ul>
+    <p class="src">Kilder: Brønnøysundregistrene, spylemannen.no, askerfasadevask.no og offentlige Facebook-innlegg, sjekket 13.11.2026.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Det som kan gå galt</h2>
+    <div class="risks">
+      <div class="risk hot"><h3>Vinteren</h3><p>Vannet fryser i minusgrader. Sesongen er i praksis april–oktober.</p></div>
+      <div class="risk"><h3>Høna og egget</h3><p>Kundene vil ha en vasker i nærheten, og vaskerne vil ha kunder. Løsningen er å ta ett nabolag om gangen.</p></div>
+      <div class="risk"><h3>Kvalitet</h3><p>Én dårlig vasker skader ryktet. Vaskeren tar bilde før og etter hver vask.</p></div>
+      <div class="risk"><h3>Skatt og lønn</h3><p>Vaskerne har eget enkeltpersonforetak eller ungdomsbedrift, så vi slipper å bli arbeidsgiver.</p></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>Plan</h2>
+    <div class="timeline">
+      <div class="t"><p class="when">Vinter 2026–27</p><h3>Venteliste</h3><p>Dele idéen, samle vaskere og interesserte kunder.</p></div>
+      <div class="t"><p class="when">April 2027</p><h3>Test i ett nabolag i Kristiansand</h3><p>Lapper i postkassen og innlegg i lokale Facebook-grupper. Målet er 20 hus som sier ja.</p></div>
+      <div class="t"><p class="when">Sommer 2027</p><h3>Flere byer</h3><p>Fungerer det, får vaskerne på ventelisten egne nabolag rundt om i landet.</p></div>
+      <div class="t" style="padding-bottom:0"><p class="when">Senere</p><h3>Borettslag og app</h3><p>Avtaler med borettslag gir mange dunker på én gang. Jobbene fordeles automatisk.</p></div>
+    </div>
+  </section>
+
+  <section class="cta stack">
+    <h2 style="margin:0">Hva tenker du?</h2>
+    <p>Ville du betalt 150 kr for å få dunken vasket? Kjenner du noen som kunne vært vasker? Send meg gjerne en melding med tanker og idéer.</p>
+    <p class="muted" style="font-size:15px">Utkast til nettsiden: <a href="../">Dunkvask.no</a></p>
+  </section>
+</main>
+</body>
+</html>

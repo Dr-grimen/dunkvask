@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dunkvask.no</title>
+<meta name="description" content="Bestill vask av søppeldunker. En lokal vasker med høytrykkspyler kommer hjem til deg. Fra 129 kr per dunk. Eller bli vasker og tjen penger i ditt nærområde.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6FAF8; --card:#FFFFFF; --ink:#10231C; --muted:#5A6E66; --line:#DCE7E2;
+  --brand:#0E8A5F; --brand-dark:#0A6B49; --brand-soft:#E3F4EC; --accent:#2BB3E6; --warn:#B45309;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0F1915;--card:#16231E;--ink:#E8F1ED;--muted:#9DB2A9;--line:#2A3A33;--brand:#17A673;--brand-dark:#5FD3A6;--brand-soft:#173A2C}
+}
+:root[data-theme="dark"]{--bg:#0F1915;--card:#16231E;--ink:#E8F1ED;--muted:#9DB2A9;--line:#2A3A33;--brand:#17A673;--brand-dark:#5FD3A6;--brand-soft:#173A2C}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:17px}
+a{color:var(--brand-dark)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:var(--bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--brand);display:grid;place-items:center}
+.nav-links{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 20px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s}
+.btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:var(--brand-dark)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}.btn-ghost:hover{border-color:var(--brand)}
+.btn-sm{padding:9px 14px;font-size:15px}
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.pill{display:inline-block;background:var(--brand-soft);color:var(--brand-dark);font-weight:600;font-size:14px;padding:6px 12px;border-radius:999px;margin-bottom:18px}
+h1{font-size:clamp(34px,5.2vw,56px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+h1 span{color:var(--brand)}
+.lead{font-size:19px;color:var(--muted);margin-bottom:28px;max-width:540px}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px}
+.choice a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:18px;transition:.15s}
+.choice a:hover{border-color:var(--brand);transform:translateY(-2px)}
+.choice a.main{background:var(--brand);border-color:var(--brand);color:#fff}
+.choice strong{display:block;font-size:18px;margin-bottom:4px}
+.choice small{font-size:14px;opacity:.85}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 20px 50px -30px rgba(16,35,28,.35)}
+.bins{display:flex;justify-content:center;gap:18px;margin-bottom:18px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.stat-row div{background:var(--bg);border-radius:12px;padding:12px 6px}
+.stat-row b{display:block;font-size:20px}
+.stat-row span{font-size:13px;color:var(--muted)}
+section{padding:56px 0}
+h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.01em;line-height:1.15;margin-bottom:10px}
+.sub{color:var(--muted);margin-bottom:32px;max-width:640px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.num{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand-dark);font-weight:700;display:grid;place-items:center;margin-bottom:12px}
+.step h3{font-size:18px;margin-bottom:6px}
+.step p{color:var(--muted);font-size:15px}
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:22px}
+.tabs button{border:0;background:none;font:inherit;font-weight:600;padding:10px 18px;border-radius:10px;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:var(--brand);color:#fff}
+.prices{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:760px}
+.price{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:24px;position:relative}
+.price.best{border-color:var(--brand)}
+.tag{position:absolute;top:-12px;left:20px;background:var(--brand);color:#fff;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px}
+.price h3{font-size:18px;margin-bottom:6px}
+.amount{font-size:38px;font-weight:800;letter-spacing:-.02em}
+.amount small{font-size:15px;font-weight:500;color:var(--muted)}
+.price ul{list-style:none;margin-top:12px;color:var(--muted);font-size:15px}
+.price li{padding:4px 0 4px 24px;position:relative}
+.price li:before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;max-width:760px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+.field{margin-bottom:14px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:15px;margin-bottom:10px}
+.check input{width:20px;height:20px;margin-top:2px;flex:none}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--brand-soft);border-radius:14px;padding:14px 18px;margin:6px 0 18px}
+.total b{font-size:24px;white-space:nowrap}
+.note{font-size:14px;color:var(--muted)}
+.earn{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.earn div{background:var(--brand-soft);border-radius:14px;padding:16px}
+.earn b{display:block;font-size:24px;color:var(--brand-dark)}
+.earn span{font-size:14px;color:var(--muted)}
+.thanks{display:none;text-align:center;padding:30px 10px}
+.thanks.show{display:block}
+.thanks h3{font-size:24px;margin:10px 0 6px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;max-width:760px}
+.faq summary{font-weight:600;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px;font-size:15px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:14px}
+.hidden{display:none}
+@media (max-width:820px){
+  .hero{padding:36px 0 20px}
+  .hero-grid,.steps,.prices,.grid2,.earn{grid-template-columns:1fr}
+  .hero-card{order:-1}
+  .nav-links .btn-ghost{display:none}
+  section{padding:40px 0}
+  .form-card{padding:20px}
+}
+@media (max-width:420px){.choice{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#">
+      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M6 7l1 13h10l1-13"/><path d="M9 4h6"/></svg></span>
+      Dunkvask.no
+    </a>
+    <nav class="nav-links">
+      <a class="btn btn-ghost btn-sm" href="#vasker">Bli vasker</a>
+      <a class="btn btn-primary btn-sm" href="#bestill">Bestill vask</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill">Nå i hele Norge</span>
+      <h1>Ren søppeldunk. <span>Uten at du løfter en finger.</span></h1>
+      <p class="lead">En vasker fra nabolaget ditt kommer med høytrykksspyler og vasker, desinfiserer og fjerner lukt fra dunkene dine, rett etter tømming.</p>
+      <div class="choice">
+        <a class="main" href="#bestill"><strong>Bestill vask →</strong><small>150 kr per dunk. Du trenger ikke være hjemme.</small></a>
+        <a href="#vasker"><strong>Bli vasker →</strong><small>Har du spyler og bil? Tjen penger nær deg.</small></a>
+      </div>
+    </div>
+    <div class="hero-card" aria-hidden="true">
+      <div class="bins">
+        <svg width="110" height="140" viewBox="0 0 110 140"><rect x="12" y="22" width="86" height="12" rx="4" fill="#3E5249"/><path d="M18 34h74l-7 96H25z" fill="#55685F"/><circle cx="30" cy="132" r="7" fill="#22302A"/><circle cx="80" cy="132" r="7" fill="#22302A"/><g fill="#7C8A57" opacity=".8"><circle cx="40" cy="70" r="6"/><circle cx="62" cy="92" r="8"/><circle cx="50" cy="110" r="5"/><circle cx="72" cy="58" r="4"/></g><text x="55" y="14" font-size="13" text-anchor="middle" fill="#B45309" font-family="Inter" font-weight="700">FØR</text></svg>
+        <svg width="110" height="140" viewBox="0 0 110 140"><rect x="12" y="22" width="86" height="12" rx="4" fill="#0A6B49"/><path d="M18 34h74l-7 96H25z" fill="#0E8A5F"/><circle cx="30" cy="132" r="7" fill="#22302A"/><circle cx="80" cy="132" r="7" fill="#22302A"/><path d="M40 60l6 6 14-14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><g fill="#2BB3E6"><circle cx="70" cy="90" r="3"/><circle cx="44" cy="100" r="2.5"/><circle cx="60" cy="112" r="2"/></g><text x="55" y="14" font-size="13" text-anchor="middle" fill="#0E8A5F" font-family="Inter" font-weight="700">ETTER</text></svg>
+      </div>
+      <div class="stat-row">
+        <div><b>150 kr</b><span>per dunk</span></div>
+        <div><b>15 min</b><span>per besøk</span></div>
+        <div><b>99,9 %</b><span>bakterier borte</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="slik">
+  <div class="wrap">
+    <h2>Slik fungerer det</h2>
+    <p class="sub">Vi kobler deg med en vasker i nærheten, akkurat som en taxi-app, bare for søppeldunker.</p>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Du bestiller</h3><p>Skriv inn adresse og antall dunker. Velg én vask eller fast abonnement.</p></div>
+      <div class="step"><div class="num">2</div><h3>Vi finner en vasker</h3><p>En godkjent vasker i nærområdet ditt får jobben og kommer på tømmedagen.</p></div>
+      <div class="step"><div class="num">3</div><h3>Dunken blir ren</h3><p>Spyling, desinfisering og luktfjerning. Du får beskjed og betaler etterpå.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="priser">
+  <div class="wrap">
+    <h2>Priser</h2>
+    <p class="sub">Fast pris, ingen overraskelser. Prisene gjelder privatpersoner og er inkludert mva.</p>
+    <div class="prices">
+      <div class="price">
+        <h3>Enkeltvask</h3>
+        <div class="amount">150 kr <small>per dunk</small></div>
+        <ul><li>Samme pris for alle dunker</li><li>Spyling, desinfisering og luktfjerning</li><li>Ingen binding</li></ul>
+      </div>
+      <div class="price best">
+        <span class="tag">Mest populær</span>
+        <h3>Abonnement</h3>
+        <div class="amount">129 kr <small>per dunk / vask</small></div>
+        <ul><li>Spar 21 kr per dunk hver gang</li><li>Vask hver 4. uke, eller hver 8. uke om vinteren</li><li>Si opp når du vil</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bestill">
+  <div class="wrap">
+    <h2>Bestill vask</h2>
+    <p class="sub">Det tar ett minutt. Vi tar kontakt når vi har funnet en vasker i ditt område.</p>
+    <div class="form-card">
+      <form id="kundeForm" novalidate>
+        <input type="hidden" name="type" value="kunde">
+        <div class="field">
+          <label>Hva vil du ha?</label>
+          <div class="tabs" role="tablist">
+            <button type="button" class="on" data-plan="abonnement">Abonnement</button>
+            <button type="button" data-plan="enkelt">Enkeltvask</button>
+          </div>
+          <input type="hidden" name="pakke" id="pakke" value="abonnement">
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="k-dunker">Antall dunker</label>
+            <select id="k-dunker" name="antall_dunker"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+          <div class="field"><label for="k-post">Postnummer</label><input id="k-post" name="postnummer" inputmode="numeric" maxlength="4" pattern="\d{4}" placeholder="4 siffer" required></div>
+        </div>
+        <div class="total"><span id="totalTxt">Pris per vask</span><b id="total">258 kr</b></div>
+        <div class="field"><label for="k-adr">Adresse</label><input id="k-adr" name="adresse" autocomplete="street-address" placeholder="Gate og husnummer" required></div>
+        <div class="grid2">
+          <div class="field"><label for="k-navn">Navn</label><input id="k-navn" name="navn" autocomplete="name" required></div>
+          <div class="field"><label for="k-tlf">Mobil</label><input id="k-tlf" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required></div>
+        </div>
+        <div class="field"><label for="k-epost">E-post</label><input id="k-epost" name="epost" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="k-msg">Noe vi bør vite? (valgfritt)</label><textarea id="k-msg" name="melding" rows="2" placeholder="F.eks. hvor dunkene står, eller tømmedag"></textarea></div>
+        <label class="check"><input type="checkbox" name="samtykke" required> Jeg godtar at Dunkvask.no deler adresse og telefon med vaskeren som tar jobben.</label>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:6px">Send bestilling</button>
+        <p class="note" style="margin-top:10px">Du betaler ingenting nå. Du får pris og tidspunkt bekreftet før vi kommer.</p>
+      </form>
+      <div class="thanks" id="kundeTakk">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#0E8A5F" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Takk for bestillingen!</h3>
+        <p class="note">Vi tar kontakt så snart vi har en vasker i ditt område.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vasker">
+  <div class="wrap">
+    <h2>Bli vasker og tjen penger i nabolaget</h2>
+    <p class="sub">Har du høytrykksspyler og bil? Vi skaffer kundene, du gjør jobben når det passer deg. Perfekt for studenter, ungdomsbedrifter og deg som vil ha en ekstrajobb.</p>
+    <div class="earn">
+      <div><b>75 %</b><span>av prisen går til deg</span></div>
+      <div><b>~110 kr</b><span>til deg per dunk, ca. 5 minutter</span></div>
+      <div><b>0 kr</b><span>å bli med, ingen binding</span></div>
+    </div>
+    <div class="form-card" style="margin-bottom:22px;background:var(--brand-soft);border-color:transparent">
+      <h3 style="font-size:20px;margin-bottom:6px">Ta ett nabolag</h3>
+      <p style="color:var(--muted);font-size:15px">På tømmedagen står alle dunkene ute på samme gate. 60 hus × 2 dunker × 150 kr = <b style="color:var(--ink)">18 000 kr</b> på én dag. Din del (75 %) er <b style="color:var(--ink)">13 500 kr</b>. Med abonnement kommer kundene tilbake hver 4. uke.</p>
+    </div>
+    <div class="form-card">
+      <form id="vaskerForm" novalidate>
+        <input type="hidden" name="type" value="vasker">
+        <div class="grid2">
+          <div class="field"><label for="v-navn">Navn</label><input id="v-navn" name="navn" autocomplete="name" required></div>
+          <div class="field"><label for="v-tlf">Mobil</label><input id="v-tlf" name="telefon" type="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="v-epost">E-post</label><input id="v-epost" name="epost" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="v-post">Postnummer du bor på</label><input id="v-post" name="postnummer" inputmode="numeric" maxlength="4" required></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="v-omr">Hvor langt kan du kjøre?</label>
+            <select id="v-omr" name="radius"><option>Bare nabolaget</option><option selected>Inntil 10 km</option><option>Inntil 25 km</option><option>Hele kommunen</option></select></div>
+          <div class="field"><label for="v-alder">Alder</label>
+            <select id="v-alder" name="alder"><option value="">Velg</option><option>15–17 år</option><option>18–25 år</option><option>Over 25 år</option></select></div>
+        </div>
+        <div class="field"><label>Hva har du?</label>
+          <label class="check"><input type="checkbox" name="har_spyler" value="ja"> Høytrykksspyler</label>
+          <label class="check"><input type="checkbox" name="har_bil" value="ja"> Bil eller tilhenger</label>
+          <label class="check"><input type="checkbox" name="har_firma" value="ja"> Eget firma (ENK, AS eller ungdomsbedrift)</label>
+        </div>
+        <div class="field"><label for="v-msg">Fortell litt om deg (valgfritt)</label><textarea id="v-msg" name="melding" rows="2" placeholder="F.eks. om du har vasket dunker før, eller link til Facebook-siden din"></textarea></div>
+        <p class="note hidden" id="ungNote" style="margin-bottom:10px;color:var(--warn)">Er du under 18, må en forelder godkjenne avtalen før du får jobber.</p>
+        <button class="btn btn-primary" type="submit" style="width:100%">Meld meg på som vasker</button>
+      </form>
+      <div class="thanks" id="vaskerTakk">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#0E8A5F" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Velkommen som vasker!</h3>
+        <p class="note">Vi ringer deg for en kort prat og sender jobber når vi har kunder i ditt område.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <h2>Spørsmål og svar</h2>
+    <details><summary>Må jeg være hjemme?</summary><p>Nei. Sett dunkene ut på tømmedagen, så vasker vi dem rett etter at renovasjonen har tømt dem.</p></details>
+    <details><summary>Hvor blir skittent vann av?</summary><p>Vaskerne bruker miljøvennlig såpe og tar hensyn til avløp. Ved større oppdrag samles vannet opp.</p></details>
+    <details><summary>Hvordan betaler jeg?</summary><p>Du betaler med Vipps eller faktura etter at vasken er gjort.</p></details>
+    <details><summary>Hvem er vaskerne?</summary><p>Lokale folk og småbedrifter med eget utstyr. Alle blir ringt opp og godkjent før de får jobber.</p></details>
+    <details><summary>Kan borettslag og bedrifter bestille?</summary><p>Ja. Skriv antall dunker og adresse i bestillingen, så får du et eget tilbud.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Dunkvask.no · Ren dunk, glad nabo.</div>
+</footer>
+
+<script>
+// Hvor skjemaene sendes. Tom = testmodus (lagres bare i denne nettleseren).
+const FORM_ENDPOINT = "";
+
+const PRIS = { abonnement:{forste:129, ekstra:129}, enkelt:{forste:150, ekstra:150} };
+const tabs = document.querySelectorAll('.tabs button');
+const pakke = document.getElementById('pakke');
+const antall = document.getElementById('k-dunker');
+function oppdaterPris(){
+  const p = PRIS[pakke.value], n = +antall.value;
+  document.getElementById('total').textContent = (p.forste + (n-1)*p.ekstra) + ' kr';
+  document.getElementById('totalTxt').textContent = pakke.value === 'abonnement' ? 'Pris per vask (abonnement)' : 'Pris for vasken';
+}
+tabs.forEach(b => b.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('on')); b.classList.add('on');
+  pakke.value = b.dataset.plan; oppdaterPris();
+}));
+antall.addEventListener('change', oppdaterPris);
+oppdaterPris();
+
+document.getElementById('v-alder').addEventListener('change', e => {
+  document.getElementById('ungNote').classList.toggle('hidden', e.target.value !== '15–17 år');
+});
+
+async function send(form, takkId){
+  const bad = [...form.querySelectorAll('[required]')].filter(el => el.type === 'checkbox' ? !el.checked : !el.value.trim());
+  form.querySelectorAll('input,select,textarea').forEach(el => el.style.borderColor = '');
+  if (bad.length){ bad.forEach(el => el.style.borderColor = '#DC2626'); bad[0].focus(); return; }
+  const data = Object.fromEntries(new FormData(form));
+  data.tid = new Date().toISOString();
+  try {
+    if (FORM_ENDPOINT){
+      const r = await fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(data)});
+      if (!r.ok) throw new Error('feil');
+    } else {
+      try { const k='dunkvask_test'; const l=JSON.parse(localStorage.getItem(k)||'[]'); l.push(data); localStorage.setItem(k, JSON.stringify(l)); } catch(e){}
+    }
+    form.style.display='none'; document.getElementById(takkId).classList.add('show');
+  } catch(e){ alert('Noe gikk galt. Prøv igjen om litt.'); }
+}
+document.getElementById('kundeForm').addEventListener('submit', e => { e.preventDefault(); send(e.target, 'kundeTakk'); });
+document.getElementById('vaskerForm').addEventListener('submit', e => { e.preventDefault(); send(e.target, 'vaskerTakk'); });
+</script>
+</body>
+</html>
